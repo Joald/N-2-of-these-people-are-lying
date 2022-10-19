@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script>
+    const arts = {};
+    const players = ["mama", "tata", "jacq", "mati"];
+    let players_processed = 0;
+    let current_player = -1;
+    let game_started = false;
+    let num_of_players = () => players.length;
+    let num_of_articles = 4;
+
+    function processInputs(player) {
+      arts[player] = Array();
+      for (var i = 1; i <= num_of_players(); ++i) {
+        arts[player].push(document.getElementById(i).value);
+      }
+      players_processed++;
+      setTimeout(advanceState, 0);
+    }
+
+    function generateForm(player) {
+      let s = `
+        <h1 id="title">artykuły dla ${player}</h1>
+        <div>
+          <form>`;
+
+      for (var i = 1; i <= num_of_articles; ++i) {
+        s += `${i}:<input type="text" name="${i}" id="${i}"><br>`;
+      }
+
+      s += `
+          </form>
+          <button onclick="processInputs('${player}')"> done</button>
+        </div>`;
+
+      document.getElementById("body").innerHTML = s;
+    }
+
+    function pick() {
+      for (var i = 0; i < num_of_players(); ++i) {
+        let r = document.getElementById(`${i}`).checked;
+        if (r) {
+          current_player = i;
+          setTimeout(advanceState, 0);
+          break;
+        }
+      }
+
+    }
+
+    function generatePicker() {
+      let s = `
+      <h1 id="title">kto gra?</h1>
+      <div>
+        <form>`;
+
+      for (var i = 0; i < num_of_players(); ++i) {
+        s += `
+          <input type="radio" name="${players[i]}" id="${i}">
+          <label for="${i}">${players[i]}</label><br>
+        `
+      }
+      s += `
+        </form>
+        <button onclick="pick()"> done </button>
+      </div>`;
+
+      document.getElementById("body").innerHTML = s;
+    }
+
+    let toOverride = -1;
+
+    function override() {
+      game_started = false;
+      current_player = toOverride;
+      setTimeout(advanceState, 0);
+    }
+
+    function qover() {
+      const arr = Array();
+      for (var i = 0; i < num_of_players(); ++i) {
+        if (arts[players[i]].length == 0) {
+          arr.push(i);
+        }
+      }
+      if (arr.length == 1) {
+        document.getElementById("body").innerHTML = `
+          <h1 id="title">Graczowi ${players[arr[0]]} skończyły się pytania!</h1>
+          <button onclick="override()">więc niech ${players[arr[0]]} zgaduje</button> <br>
+          a jak nie, no to koniec...
+        `;
+        toOverride = arr[0];
+        return;
+      }
+      if (arr.length > 1) {
+        document.getElementById("body").innerHTML = `
+          <h1 id="title">Więcej niż 1 graczowi (${arr.join(", ")}) skończyły się pytania, teraz serio koniec!</h1>
+          `;
+      }
+      game_started = false;
+      current_player = -1;
+      setTimeout(advanceState, 0);
+
+    }
+
+    function startGame() {
+      let target = Math.floor(Math.random() * (num_of_players() - 1));
+      if (target >= current_player) {
+        target++;
+      }
+      const art = arts[players[target]].pop();
+      document.getElementById("body").innerHTML = `
+        <h1 id="title">Zgaduje ${players[current_player]}!</h1>
+        <div>
+          Tytuł artykułu to "${art}"
+        </div>
+        <button onclick="qover()">zgadnięte</button> 
+      `;
+      game_started = true;
+    }
+
+    function advanceState() {
+      if (players_processed < num_of_players()) {
+        generateForm(players[players_processed]);
+      } else if (current_player == -1) {
+        generatePicker();
+      } else if (!game_started) {
+        startGame();
+      }
+    }
+  </script>
+  <meta charset="utf-8">
+  <title>oto gierra</title>
+</head>
+
+<body id="body">
+  <script>advanceState()</script>
+</body>
+
+
+
+</html>
