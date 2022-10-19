@@ -1,8 +1,11 @@
-# N-2-of-these-people-are-lying
+# N-2 of these people are lying
 A simple interface app to aid in playing an extended version of "2 of these people are lying", as seen on YouTube from The Technical Difficulties.
 
 ## What?
 If you've seen the videos, you know how the game is played. If not, watch any of the videos in [this playlist](https://www.youtube.com/watch?v=3UAOs9B9UH8&list=PLfx61sxf1Yz2I-c7eMRk9wBUUDCJkU7H0). Credit for the idea of the game goes to [Tom Scott](https://www.youtube.com/c/TomScottGo)
+
+## TL;DR, let me play
+[Here you go](https://htmlpreview.github.io/?https://github.com/Joald/N-2-of-these-people-are-lying/blob/main/game.html)
 
 ## Features
 - serverless
