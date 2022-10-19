@@ -21,7 +21,7 @@
 
     function generateForm(player) {
       let s = `
-        <h1 id="title">artykuły dla ${player}</h1>
+        <h1 id="title">Input articles for player ${player}</h1>
         <div>
           <form>`;
 
@@ -31,7 +31,7 @@
 
       s += `
           </form>
-          <button onclick="processInputs('${player}')"> done</button>
+          <button onclick="processInputs('${player}')"> Done </button>
         </div>`;
 
       document.getElementById("body").innerHTML = s;
@@ -51,7 +51,7 @@
 
     function generatePicker() {
       let s = `
-        <h1 id="title">kto gra?</h1>
+        <h1 id="title">Who's guessing?</h1>
         <div>
           <form>`;
 
@@ -63,7 +63,7 @@
       }
       s += `
         </form>
-        <button onclick="pick()"> done </button>
+        <button onclick="pick()"> Done </button>
       </div>`;
 
       document.getElementById("body").innerHTML = s;
@@ -76,7 +76,7 @@
           <form>
             <input type="text" name="playercount" id="playercount"><br>
             </form>
-          <button onclick="processPlayerCount()"> done</button>
+          <button onclick="processPlayerCount()"> Done </button>
         </div>`;
       document.getElementById("body").innerHTML = s;
     }
@@ -95,7 +95,7 @@
 
       s += `
           </form>
-          <button onclick="processPlayerNames()"> done</button>
+          <button onclick="processPlayerNames()"> Done </button>
         </div>`;
       document.getElementById("body").innerHTML = s;
     }
@@ -124,16 +124,18 @@
       }
       if (arr.length == 1) {
         document.getElementById("body").innerHTML = `
-          <h1 id="title">Graczowi ${players[arr[0]]} skończyły się pytania!</h1>
-          <button onclick="override()">więc niech ${players[arr[0]]} zgaduje</button> <br>
-          a jak nie, no to koniec...
+          <h1 id="title">Player ${players[arr[0]]} has ran out of questions!</h1>
+          <button onclick="override()">let player ${players[arr[0]]} be the one who guesses then</button> <br>
+          Otherwise, it's game over, refresh to restart (restarting with the same players coming soon™)
         `;
         toOverride = arr[0];
         return;
       }
       if (arr.length > 1) {
         document.getElementById("body").innerHTML = `
-          <h1 id="title">Więcej niż 1 graczowi (${arr.join(", ")}) skończyły się pytania, teraz serio koniec!</h1>
+          <h1 id="title">At least 2 players (${arr.join(", ")}) are out of questions, now it really is over!</h1>
+          Refresh to restart! 
+          Restarting with the same players as well as adding more articles coming soon™!
           `;
       }
       game_started = false;
@@ -149,11 +151,11 @@
       }
       const art = arts[players[target]].pop();
       document.getElementById("body").innerHTML = `
-        <h1 id="title">Zgaduje ${players[current_player]}!</h1>
+        <h1 id="title">Player ${players[current_player]}'s turn to guess!</h1>
         <div>
-          Tytuł artykułu to "${art}"
+          Title of the article is "${art}"
         </div>
-        <button onclick="qover()">zgadnięte</button> 
+        <button onclick="qover()">Guessing done</button> 
       `;
       game_started = true;
     }
