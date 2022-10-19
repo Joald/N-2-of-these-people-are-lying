@@ -161,7 +161,7 @@
     }
 
     function advanceState() {
-      if (num_of_players() == 0) {
+      if (num_of_players() < 3) {
         generatePlayerInput();
       } else if (players_processed < num_of_players()) {
         generateForm(players[players_processed]);
