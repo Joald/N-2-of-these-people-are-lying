@@ -24,6 +24,8 @@ If you've seen the videos, you know how the game is played. If not, watch any of
 
 ## Planned features
 - Polish translation
+- Restarting with the same players
+- Adding more articles once someone has ran out
 - Scoring system
 - Mobile-friendly version (unless it's ok already, haven't tested)
 
